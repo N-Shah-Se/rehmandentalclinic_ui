@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Title -->
+    <title>Dashboard | Front - Admin &amp; Dashboard Template</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    <!-- Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Implementing Plugins -->
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/bootstrap-icons/font/bootstrap-icons.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/tom-select/dist/css/tom-select.bootstrap5.css"
+    />
+
+    <!-- CSS Front Template -->
+
+    <link
+      rel="preload"
+      href="/assets/css/theme.min.css"
+      data-hs-appearance="default"
+      as="style"
+    />
+    <link
+      rel="preload"
+      href="/assets/css/theme-dark.min.css"
+      data-hs-appearance="dark"
+      as="style"
+    />
+    <!-- SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <link rel="stylesheet" href="/assets/vendor/tom-select/dist/css/tom-select.bootstrap5.css">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <style data-hs-appearance-onload-styles>
+      * {
+        transition: unset !important;
+      }
+
+      body {
+        opacity: 0;
+      }
+    </style>
+
+    <script>
+      window.hs_config = {
+        autopath: "@@autopath",
+        deleteLine: "hs-builder:delete",
+        "deleteLine:build": "hs-builder:build-delete",
+        "deleteLine:dist": "hs-builder:dist-delete",
+        previewMode: false,
+        startPath: "/index.html",
+        vars: {
+          themeFont:
+            "https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap",
+          version: "?v=1.0",
+        },
+        layoutBuilder: {
+          extend: { switcherSupport: true },
+          header: { layoutMode: "default", containerMode: "container-fluid" },
+          sidebarLayout: "default",
+        },
+        themeAppearance: {
+          layoutSkin: "default",
+          sidebarSkin: "default",
+          styles: {
+            colors: {
+              primary: "#377dff",
+              transparent: "transparent",
+              white: "#fff",
+              dark: "132144",
+              gray: { 100: "#f9fafc", 900: "#1e2022" },
+            },
+            font: "Inter",
+          },
+        },
+        languageDirection: { lang: "en" },
+        skipFilesFromBundle: {
+          dist: [
+            "assets/js/hs.theme-appearance.js",
+            "assets/js/hs.theme-appearance-charts.js",
+            "assets/js/demo.js",
+          ],
+          build: [
+            "assets/css/theme.css",
+            "assets/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside-mini-cache.js",
+            "assets/js/demo.js",
+            "assets/css/theme-dark.css",
+            "assets/css/docs.css",
+            "assets/vendor/icon-set/style.css",
+            "assets/js/hs.theme-appearance.js",
+            "assets/js/hs.theme-appearance-charts.js",
+            "node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js",
+            "assets/js/demo.js",
+          ],
+        },
+        minifyCSSFiles: ["assets/css/theme.css", "assets/css/theme-dark.css"],
+        copyDependencies: {
+          dist: { "*assets/js/theme-custom.js": "" },
+          build: {
+            "*assets/js/theme-custom.js": "",
+            "node_modules/bootstrap-icons/font/*fonts/**": "assets/css",
+          },
+        },
+        buildFolder: "",
+        replacePathsToCDN: {},
+        directoryNames: { src: "./src", dist: "./dist", build: "./build" },
+        fileNames: {
+          dist: { js: "theme.min.js", css: "theme.min.css" },
+          build: {
+            css: "theme.min.css",
+            js: "theme.min.js",
+            vendorCSS: "vendor.min.css",
+            vendorJS: "vendor.min.js",
+          },
+        },
+        fileTypes: "jpg|png|svg|mp4|webm|ogv|json",
+      };
+      window.hs_config.gulpRGBA = (p1) => {
+        const options = p1.split(",");
+        const hex = options[0].toString();
+        const transparent = options[1].toString();
+
+        var c;
+        if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+          c = hex.substring(1).split("");
+          if (c.length == 3) {
+            c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+          }
+          c = "0x" + c.join("");
+          return (
+            "rgba(" +
+            [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(",") +
+            "," +
+            transparent +
+            ")"
+          );
+        }
+        throw new Error("Bad Hex");
+      };
+      window.hs_config.gulpDarken = (p1) => {
+        const options = p1.split(",");
+
+        let col = options[0].toString();
+        let amt = -parseInt(options[1]);
+        var usePound = false;
+
+        if (col[0] == "#") {
+          col = col.slice(1);
+          usePound = true;
+        }
+        var num = parseInt(col, 16);
+        var r = (num >> 16) + amt;
+        if (r > 255) {
+          r = 255;
+        } else if (r < 0) {
+          r = 0;
+        }
+        var b = ((num >> 8) & 0x00ff) + amt;
+        if (b > 255) {
+          b = 255;
+        } else if (b < 0) {
+          b = 0;
+        }
+        var g = (num & 0x0000ff) + amt;
+        if (g > 255) {
+          g = 255;
+        } else if (g < 0) {
+          g = 0;
+        }
+        return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
+      };
+      window.hs_config.gulpLighten = (p1) => {
+        const options = p1.split(",");
+
+        let col = options[0].toString();
+        let amt = parseInt(options[1]);
+        var usePound = false;
+
+        if (col[0] == "#") {
+          col = col.slice(1);
+          usePound = true;
+        }
+        var num = parseInt(col, 16);
+        var r = (num >> 16) + amt;
+        if (r > 255) {
+          r = 255;
+        } else if (r < 0) {
+          r = 0;
+        }
+        var b = ((num >> 8) & 0x00ff) + amt;
+        if (b > 255) {
+          b = 255;
+        } else if (b < 0) {
+          b = 0;
+        }
+        var g = (num & 0x0000ff) + amt;
+        if (g > 255) {
+          g = 255;
+        } else if (g < 0) {
+          g = 0;
+        }
+        return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
+      };
+    </script>
+    <script>
+      console.log('=-=',localStorage.getItem('_access'))
+      if (localStorage.getItem('_access') == undefined) {
+          window.location.href = '/sign-in.html';
+      }
+  </script>
+  </head>
+
+  <body
+    class="has-navbar-vertical-aside navbar-vertical-aside-show-xl footer-offset"
+  >
+    <script src="/assets/js/hs.theme-appearance.js"></script>
+
+    <script src="/assets/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside-mini-cache.js"></script>
+
+    <!-- ========== HEADER ========== -->
+
+    <div id="header"></div>
+    <!-- ========== END HEADER ========== -->
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <!-- Navbar Vertical -->
+    <div id="sidebar"></div>
+
+    <!-- End Navbar Vertical -->
+    <main id="content" class="main ">
+        <!-- Page Error -->
+        <div class="content container-fluid d-none mt-7" id="pageErrorsToShow">
+          <div class="card p-5 text-center align-items-center">
+           
+            <p class="mb-0 text-wrap" id="showErrorText"></p>
+          </div>
+        </div>
+        <!-- Table -->
+        <div class="content container-fluid mt-7" id="pageContentToShow">
+          <!-- Card -->
+          <div class="card">
+            <!-- Header -->
+            <div class="card-header card-header-content-sm-between">
+              <h4 class="card-header-title mb-2 mb-sm-0 d-flex ">Patient List</h4>
+              <!-- <span id="totalCountData" class="pt-2 badge bg-soft-dark d-flex  text-dark ms-2 d-none"></span> -->
+              <!-- <img width="20" src=""> -->
+              <!-- Nav -->
+            <div class="d-flex">
+              <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal"
+              data-bs-target="#addPatient">
+              Add Patient
+            </button>
+          
+            </div>
+              <!-- End Nav -->
+            </div>
+            <!-- Table -->
+            <div class="card-body p-0">
+              <!-- Data table spinner -->
+              <div class="d-flex justify-content-center align-items-center mt-5 mb-5" id="patientTableLoader">
+                <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;color: #631212;">
+                </div>
+              </div>
+              <!-- End Data table spinner -->
+              <!-- Table -->
+              <div class="table-responsive datatable-custom">
+                <!-- Datatable Error Message -->
+                <div class="p-5 text-center d-none" id="patientTableErrorDiv">
+                  
+                  <p id="patientTableErrorText"></p>
+                </div>
+                <!-- table view -->
+                <table id="patientTable"
+                  class="js-datatable table table-borderless table-thead-bordered table-nowrap table-align-middle card-table d-none w-100">
+                  <thead class="thead-light">
+                    <tr>
+                      <th class="w-5">First name</th>
+                      <th class="w-5">Last name</th>
+                      <th class="w-5">Description</th>
+                      <th class="w-5">Phone No.</th>
+                      <th class="w-5">Total Payment</th>
+                      <th class="w-5">Remaining</th>
+                      <th class="w-5">Checkup date</th>
+                      <th class="w-5">Paid</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <!-- End Table -->
+            </div>
+            <!-- Footer -->
+            <div class="card-footer mt-4 d-none" id="patientTableFooterDiv">
+              <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+                <div class="col-sm mb-2 mb-sm-0">
+                  <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                    <span class="me-2"># of rows:</span>
+                    <!-- Select -->
+                    <div class="tom-select-custom">
+                      <select id="datatableEntries1" class="js-select form-select form-select-borderless w-auto"
+                        autocomplete="off" data-hs-tom-select-options='{
+                                "searchInDropdown": false,
+                                "hideSearch": true
+                              }'>
+                        <option class="p-2" value="10" selected>10</option>
+                        <option class="p-2" value="25">25</option>
+                        <option class="p-2" value="50">50</option>
+                        <option class="p-2" value="100">100</option>
+    
+                      </select>
+                    </div>
+                    <!-- End Select -->
+                    <!-- Pagination Quantity -->
+                    <span id="datatableWithPaginationInfoTotalQty1"></span>
+                  </div>
+                </div>
+                <!-- End Col -->
+                <div class="col-sm-auto">
+                  <div class="d-flex justify-content-center justify-content-sm-end">
+                    <!-- Pagination -->
+                    <nav id="datatablePagination1" aria-label="Activity pagination"></nav>
+                  </div>
+                </div>
+                <!-- End Col -->
+              </div>
+              <!-- End Row -->
+            </div>
+            <!-- End Footer -->
+          </div>
+        </div>
+      </main>
+      <!-- ========== END MAIN CONTENT ========== -->
+    
+      <!-- ========== SECONDARY CONTENTS ========== -->
+      <!-- Create Group Modal -->
+      <div class="modal fade" id="addPatient" tabindex="-1" aria-labelledby="addPatientLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title mb-0" id="addPatientLabel">Add new patient</h5>
+            </div>
+            <!-- Body -->
+            <div class="modal-body py-4">
+              <!-- Form -->
+              <form class="js-validate needs-validation" novalidate id="createPatientForm">
+                <div class="col-sm-12">
+                  <!-- Form -->
+                  <div class="mb-4">
+                    <label class="form-label" for="firstName">First name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="firstName" id="firstName"
+                      placeholder="Enter first name" maxlength="50" minlength="3" aria-label="Enter first name"
+                      required>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label" for="lastName">Last name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="lastName" id="lastName"
+                      placeholder="Enter last name" maxlength="50" minlength="3" aria-label="Enter last name"
+                      required>
+                  </div>
+
+                  <!-- Group Description -->
+                  <div class="mb-4">
+                    <label class="form-label">Description <span class="text-danger">*</span></label>
+                    <div class="quill-custom">
+                      <textarea class="form-control ps-1" name="description" id="description"
+                        placeholder="Enter a description" maxlength="150" 
+                        aria-label="Enter a description"></textarea>
+                    </div>
+                  </div>
+                  <!-- End Quill -->
+                 
+    
+                  <div class="mb-4">
+                    <label class="form-label" for="phone">Phone No. <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="phone" id="phone"
+                      placeholder="Enter phone no." maxlength="50" minlength="3" aria-label="Enter phone"
+                      required>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label" for="totalPayment">Total Payment <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="totalPayment" id="totalPayment"
+                      placeholder="Enter first name" maxlength="50" minlength="3" aria-label="Enter group name"
+                      required>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label" for="paid">Paid <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="paid" id="paid"
+                      placeholder="Enter payment" maxlength="50" minlength="3" aria-label="Enter payment"
+                      required>
+                  </div>
+
+                  <!-- Check End  -->
+                  <!-- End Form -->
+                </div>
+                <!-- End Body -->
+    
+            </div>
+            <!-- End Body -->
+    
+    
+            <!-- Footer -->
+            <div class="modal-footer p-4">
+              <div class="d-grid gap-2 d-flex flex-row-reverse">
+                <button type="submit" id="createUserGroupBtn"
+                  class="btn btn-soft-primary">Submit</button>
+                <button type="button" data-bs-dismiss="modal" aria-label="Close"
+                  class="forgot-password-close-modal btn bg-secondary text-white btn-sm">Cancel</button>
+              </div>
+              <!-- End Row -->
+            </div>
+            </form>
+            <!-- End Footer -->
+          </div>
+        </div>
+      </div>
+      <!-- End Share with people Modal -->
+    
+      <!-- Edit Group Modal -->
+      <div class="modal fade" id="editGroup" tabindex="-1" aria-labelledby="addPatientLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title mb-0" id="addPatientLabel">Edit patient</h5>
+            </div>
+            <!-- Body -->
+            <div class="modal-body py-4">
+              <!-- Form -->
+              <form class="js-validate needs-validation" novalidate id="editPatientForm">
+                <div class="col-sm-12">
+                  <!-- Form -->
+                  <div class="mb-4">
+                    <label class="form-label" for="editFirstName">First name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="editFirstName" id="editFirstName"
+                      placeholder="Enter first name" maxlength="50" minlength="3" aria-label="Enter first name"
+                      required>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label" for="editLastName">Last name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="editLastName" id="editLastName"
+                      placeholder="Enter last name" maxlength="50" minlength="3" aria-label="Enter last name"
+                      required>
+                  </div>
+
+                  <!-- Group Description -->
+                  <div class="mb-4">
+                    <label class="form-label">Description <span class="text-danger">*</span></label>
+                    <div class="quill-custom">
+                      <textarea class="form-control ps-1" name="editDescription" id="editDescription"
+                        placeholder="Enter a description" maxlength="150" 
+                        aria-label="Enter a description"></textarea>
+                    </div>
+                  </div>
+                  <!-- End Quill -->
+                 
+    
+                  <div class="mb-4">
+                    <label class="form-label" for="editPhone">Phone No. <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="editPhone" id="editPhone"
+                      placeholder="Enter phone no." maxlength="50" minlength="3" aria-label="Enter phone"
+                      required>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label" for="editTotalPayment">Total Payment <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="editTotalPayment" id="editTotalPayment"
+                      placeholder="Enter first name" maxlength="50" minlength="3" aria-label="Enter group name"
+                      required>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label" for="editPaid">Paid <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control form-control-lg  ps-1" name="editPaid" id="editPaid"
+                      placeholder="Enter payment" maxlength="50" minlength="3" aria-label="Enter payment"
+                      required>
+                  </div>
+
+                  <!-- Check End  -->
+                  <!-- End Form -->
+                </div>
+                <!-- End Body -->
+    
+            </div>
+            <!-- End Body -->
+    
+    
+            <!-- Footer -->
+            <div class="modal-footer p-4">
+              <div class="d-grid gap-2 d-flex flex-row-reverse">
+                <button type="submit" id="editPatientBtn"
+                  class="btn btn-soft-primary">Submit</button>
+                <button type="button" data-bs-dismiss="modal" aria-label="Close"
+                  class="forgot-password-close-modal btn bg-secondary text-white btn-sm">Cancel</button>
+              </div>
+              <!-- End Row -->
+            </div>
+            </form>
+            <!-- End Footer -->
+          </div>
+        </div>
+      </div>
+    <!-- ========== END MAIN CONTENT ========== -->
+
+    <!-- JS Global Compulsory  -->
+    <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+    <script src="/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script src="/assets/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside.min.js"></script>
+
+    <!-- JS Front -->
+    <script src="/assets/js/theme.min.js"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+      (function () {
+        localStorage.removeItem("hs_theme");
+
+        window.onload = function () {
+          // INITIALIZATION OF NAVBAR VERTICAL ASIDE
+          // =======================================================
+          new HSSideNav(".js-navbar-vertical-aside").init();
+
+          // INITIALIZATION OF BOOTSTRAP DROPDOWN
+          // =======================================================
+          HSBsDropdown.init();
+
+          // INITIALIZATION OF CHARTJS
+          // =======================================================
+
+          // INITIALIZATION OF SELECT
+          // =======================================================
+          HSCore.components.HSTomSelect.init(".js-select");
+        };
+      })();
+    </script>
+
+    <!-- Style Switcher JS -->
+
+    <script>
+      (function () {
+        // STYLE SWITCHER
+        // =======================================================
+        const $dropdownBtn = document.getElementById("selectThemeDropdown"); // Dropdowon trigger
+        const $variants = document.querySelectorAll(
+          `[aria-labelledby="selectThemeDropdown"] [data-icon]`
+        ); // All items of the dropdown
+
+        // Function to set active style in the dorpdown menu and set icon for dropdown trigger
+        const setActiveStyle = function () {
+          $variants.forEach(($item) => {
+            if (
+              $item.getAttribute("data-value") ===
+              HSThemeAppearance.getOriginalAppearance()
+            ) {
+              $dropdownBtn.innerHTML = `<i class="${$item.getAttribute(
+                "data-icon"
+              )}" />`;
+              return $item.classList.add("active");
+            }
+
+            $item.classList.remove("active");
+          });
+        };
+
+        // Add a click event to all items of the dropdown to set the style
+        $variants.forEach(function ($item) {
+          $item.addEventListener("click", function () {
+            HSThemeAppearance.setAppearance($item.getAttribute("data-value"));
+          });
+        });
+
+        // Call the setActiveStyle on load page
+        setActiveStyle();
+
+        // Add event listener on change style to call the setActiveStyle function
+        window.addEventListener("on-hs-appearance-change", function () {
+          setActiveStyle();
+        });
+      })();
+      $(document).ready(function () {
+  // $('.handelActive').on('click', function () {
+    // Remove the active class from all elements with the handelActive class
+    // $('.handelActive').removeClass('active');
+
+    // Add the active class to the clicked element
+    // $(this).addClass('active');
+  // });
+});
+    </script>
+    <!-- Validation checks handle this libraray -->
+    <script src="/assets/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+   <script src="/assets/vendor/datatables.net.extensions/select/select.min.js"></script>
+   <script src="/assets/vendor/datatables.net.extensions/select/select.min.js"></script>
+   <script src="/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+   <script src="/assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+   <script src="/assets/vendor/jszip/dist/jszip.min.js"></script>
+   <script src="/assets/vendor/pdfmake/build/pdfmake.min.js"></script>
+   <script src="/assets/vendor/pdfmake/build/vfs_fonts.js"></script>
+   <script src="/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+   <script src="/assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+   <script src="/assets/vendor/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="/files/my-scripts/notification.js"></script>
+    <!-- SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/files/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+    <script src="/files/my-scripts/tabelInit.js"></script>
+    <script src="JS/view-patient.js"></script>
+    <!-- End Style Switcher JS -->
+  </body>
+</html>
