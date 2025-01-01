@@ -153,6 +153,9 @@ $(document).ready(function () {
     
   });
 
+  $('#globalSearchInput').on('keyup', function () {
+    patientTableInit.search(this.value).draw();
+  });
 // Get All Sso Groups
 function getAllPatient (skip, page, search) {
 
@@ -240,19 +243,19 @@ function getAllPatient (skip, page, search) {
       },
       error: function (xhr) {
         $('#cover-spin').hide()
-        // $('#pageContentToShow').addClass('d-none')
-        // $('#pageErrorsToShow').removeClass('d-none')
+        $('#pageContentToShow').addClass('d-none')
+        $('#pageErrorsToShow').removeClass('d-none')
   
         if (xhr.status === 400) {
-          $('#showErrorText').text('invalidRequest400Error')
+          $('#showErrorText').text('Invalid Request')
         } else if (xhr.status === 401) {
-          $('#showErrorText').text('unauthorizedRequest401Error')
+          $('#showErrorText').text('Unauthorized Request')
         } else if (xhr.status === 404) {
-          $('#showErrorText').text('notFound404Error')
+          $('#showErrorText').text('Not Found')
         } else if (xhr.status === 503) {
-          $('#showErrorText').text('serverError503Error')
+          $('#showErrorText').text('Server Error')
         } else {
-       
+          $('#showErrorText').text('Server Error')
         }
       }
     })

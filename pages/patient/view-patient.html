@@ -9,7 +9,7 @@
     />
 
     <!-- Title -->
-    <title>Dashboard | Front - Admin &amp; Dashboard Template</title>
+    <title>Rehman | Dental clinic &amp; Booking app </title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -259,20 +259,57 @@
           <!-- Card -->
           <div class="card">
             <!-- Header -->
-            <div class="card-header card-header-content-sm-between">
-              <h4 class="card-header-title mb-2 mb-sm-0 d-flex ">Patient List</h4>
-              <!-- <span id="totalCountData" class="pt-2 badge bg-soft-dark d-flex  text-dark ms-2 d-none"></span> -->
-              <!-- <img width="20" src=""> -->
-              <!-- Nav -->
-            <div class="d-flex">
-              <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal"
+            <div class="card-header">
+              <div class="row justify-content-between align-items-center flex-grow-1">
+                <div class="col-md">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="card-header-title">Patient Details</h4>
+    
+                  
+                  </div>
+                </div>
+                <!-- End Col -->
+    
+                <div class="col-auto">
+                  <!-- Filter -->
+                  <div class="row align-items-sm-center">
+                    
+                    
+    
+                    <div class="col-md">
+                      <form>
+                        <!-- Search -->
+                        <div class="input-group input-group-merge input-group-flush">
+                          <div class="input-group-prepend input-group-text">
+                            <i class="bi-search"></i>
+                          </div>
+                          <input id="globalSearchInput" type="search" class="form-control" placeholder="Filter..." aria-label="">
+                        </div>
+                        <!-- End Search -->
+                      </form>
+                    </div>
+                    <!-- End Col -->
+                     <!-- End Col -->
+    
+                    <div class="col-sm-auto">
+                      <button type="button" class="btn btn-soft-primary" data-bs-toggle="modal"
               data-bs-target="#addPatient">
               Add Patient
             </button>
+                      <!-- End Row -->
+                    </div>
+                    <!-- End Col -->
+                  </div>
+                  <!-- End Filter -->
+                </div>
+                <!-- End Col -->
+              </div>
+            
+            
           
             </div>
               <!-- End Nav -->
-            </div>
+            
             <!-- Table -->
             <div class="card-body p-0">
               <!-- Data table spinner -->
